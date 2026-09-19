@@ -2,7 +2,7 @@ import { useState } from "react";
 import { menuItemArr, todoArr } from "./type";
 import TodoStats from "../TodoStats/TodoStats";
 import TodoItem from "./todoItem/TodoItem";
-import TodoFormAdd from "./todoFormAdd/TodoFormAdd";
+import TodoFormAdd from "./todoFormAdd/ToDoFormAdd";
 
 const TodoContainer = () => {
   const [todoList, setTodoList] = useState(todoArr);
