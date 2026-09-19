@@ -1,5 +1,4 @@
 import type { Todo } from "../type";
-
 interface Props {
   setTodoList: React.Dispatch<React.SetStateAction<Todo[]>>;
 }
@@ -7,9 +6,11 @@ interface Props {
 const TodoFormAdd = ({ setTodoList }: Props) => {
   const addNewTask = (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
-    ///
-    const title = e.target.titleNewTask.value;
-    const description = e.target.titleNewDescription.value;
+
+    const formData = new FormData(e.currentTarget);
+
+    const title = String(formData.get("titleNewTask"));
+    const description = String(formData.get("descriptionNewTask"));
 
     if (title.trim().length === 0 || description.trim().length === 0) {
       alert("title and description: required fields");
@@ -35,11 +36,11 @@ const TodoFormAdd = ({ setTodoList }: Props) => {
         </p>
 
         <p>
-          <label htmlFor="titleNewDescription">Description</label>
+          <label htmlFor="descriptionNewTask">Description</label>
           <input
             type="text"
-            id="titleNewDescription"
-            name="titleNewDescription"
+            id="descriptionNewTask"
+            name="descriptionNewTask"
           />
         </p>
 

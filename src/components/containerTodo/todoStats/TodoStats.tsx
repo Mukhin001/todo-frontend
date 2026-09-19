@@ -1,4 +1,4 @@
-import type { Todo } from "../containerTodo/type";
+import type { Todo } from "../type";
 
 interface Props {
   todoList: Todo[];
