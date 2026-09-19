@@ -1,11 +1,23 @@
 import { useState } from "react";
 import { menuItemArr, todoArr } from "./type";
-import ToDoItem from "./toDoList/ToDoItem";
-import TodoStats from "../toDosTotal/TodoStats";
-import ToDoFormAdd from "./toDoFormAdd/ToDoFormAdd";
+import TodoStats from "../TodoStats/TodoStats";
+import TodoItem from "./todoItem/TodoItem";
+import TodoFormAdd from "./todoFormAdd/TodoFormAdd";
 
 const TodoContainer = () => {
   const [todoList, setTodoList] = useState(todoArr);
+
+  const onToggleDone = (id: number) => {
+    setTodoList((prev) =>
+      prev.map((todo) => {
+        if (todo.id === id) {
+          return { ...todo, done: !todo.done };
+        } else {
+          return todo;
+        }
+      }),
+    );
+  };
 
   return (
     <section>
@@ -21,16 +33,11 @@ const TodoContainer = () => {
       </div>
 
       <TodoStats todoList={todoList} />
-      <ToDoFormAdd setTodoList={setTodoList} />
+      <TodoFormAdd setTodoList={setTodoList} />
 
       <ul>
         {todoList.map((todo) => (
-          <ToDoItem
-            key={todo.id}
-            todo={todo}
-            todoList={todoList}
-            setTodoList={setTodoList}
-          />
+          <TodoItem key={todo.id} todo={todo} onToggleDone={onToggleDone} />
         ))}
       </ul>
     </section>

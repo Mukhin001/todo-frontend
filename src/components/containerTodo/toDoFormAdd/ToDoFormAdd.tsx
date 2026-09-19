@@ -4,7 +4,7 @@ interface Props {
   setTodoList: React.Dispatch<React.SetStateAction<Todo[]>>;
 }
 
-const ToDoFormAdd = ({ setTodoList }: Props) => {
+const TodoFormAdd = ({ setTodoList }: Props) => {
   const addNewTask = (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -50,4 +50,4 @@ const ToDoFormAdd = ({ setTodoList }: Props) => {
   );
 };
 
-export default ToDoFormAdd;
+export default TodoFormAdd;
