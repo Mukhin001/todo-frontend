@@ -17,9 +17,20 @@ const TodoFormAdd = ({ setTodoList }: Props) => {
       return;
     }
 
+    const now = new Date().toISOString();
+
     setTodoList((prev) => [
       ...prev,
-      { id: Number(new Date()), title, description, done: false },
+      {
+        id: Number(new Date()),
+        title,
+        description,
+        done: false,
+        createdAt: now,
+        updatedAt: now,
+        priority: "medium",
+        dueDate: null,
+      },
     ]);
 
     e.target.reset();

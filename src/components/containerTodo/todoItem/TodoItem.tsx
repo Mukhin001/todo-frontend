@@ -25,6 +25,7 @@ const TodoItem = ({
           <p>description: {todo.description}</p>
 
           <p>Status: {todo.done ? "Done" : "Active"}</p>
+          <p>Date: {"todo date"}</p>
         </div>
       ) : (
         <div>
@@ -53,6 +54,30 @@ const TodoItem = ({
       <button onClick={() => setIsEditing((prev) => !prev)}>
         {isEditing ? "close edit task" : "edit task"}
       </button>
+
+      <p>
+        Created:{" "}
+        {new Date(todo.createdAt).toLocaleString("ru-RU", {
+          day: "2-digit",
+          month: "2-digit",
+          year: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+        })}
+      </p>
+
+      {todo.updatedAt && (
+        <p>
+          Updated:{" "}
+          {new Date(todo.updatedAt).toLocaleString("ru-RU", {
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric",
+            hour: "2-digit",
+            minute: "2-digit",
+          })}
+        </p>
+      )}
     </li>
   );
 };
