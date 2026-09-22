@@ -7,24 +7,26 @@ import TodoFormAdd from "./todoFormAdd/TodoFormAdd";
 const TodoContainer = () => {
   const [todoList, setTodoList] = useState(todoArr);
   const [sortOption, setSortOption] = useState<SortOption>("date-asc");
+  const [searchTodo, setSearchTodo] = useState("");
 
   const getSortedTodoList = () => {
-    const todos = [...todoList];
+    const filteredTodos = getFilteredTodoList();
 
     if (sortOption === "date-asc") {
-      return todos.sort(
+      return filteredTodos.sort(
         (a, b) =>
           new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(),
       );
     }
 
     if (sortOption === "date-desc") {
-      return todos.sort(
+      return filteredTodos.sort(
         (a, b) =>
           new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
       );
     }
-    return todos;
+
+    return filteredTodos;
   };
 
   const onToggleDone = (id: number) => {
@@ -60,6 +62,18 @@ const TodoContainer = () => {
     setSortOption(value);
   };
 
+  const getFilteredTodoList = () => {
+    const query = searchTodo.trim().toLowerCase();
+
+    if (query.length === 0) {
+      return [...todoList];
+    }
+
+    return todoList.filter((todo) =>
+      todo.description.toLowerCase().includes(query),
+    );
+  };
+
   return (
     <section>
       <div>
@@ -83,6 +97,16 @@ const TodoContainer = () => {
           <option value="date-desc">Newest first</option>
         </select>
       </div>
+
+      <form>
+        <label htmlFor="search-todo">Search todo</label>
+        <input
+          type="text"
+          name="search-todo"
+          id="search-todo"
+          onChange={(e) => setSearchTodo(e.target.value)}
+        />
+      </form>
 
       <ul>
         {getSortedTodoList().map((todo) => (

@@ -14,13 +14,14 @@ const TodoFormEdit = ({ todo, setIsEditing, onUpdateTask }: Props) => {
 
     const title = String(formData.get("editTitle"));
     const description = String(formData.get("editDescription"));
+    const now = new Date().toISOString();
 
     if (title.trim().length === 0 || description.trim().length === 0) {
       alert("title and description: required fields");
       return;
     }
 
-    onUpdateTask({ ...todo, title, description });
+    onUpdateTask({ ...todo, title, description, updatedAt: now });
 
     setIsEditing(false);
   };
@@ -50,7 +51,6 @@ const TodoFormEdit = ({ todo, setIsEditing, onUpdateTask }: Props) => {
           />
         </p>
 
-        <button type="reset">reset</button>
         <button type="submit">save task</button>
       </fieldset>
     </form>

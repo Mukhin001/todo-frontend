@@ -22,18 +22,18 @@ const TodoFormAdd = ({ setTodoList }: Props) => {
     setTodoList((prev) => [
       ...prev,
       {
-        id: Number(new Date()),
+        id: Date.now(),
         title,
         description,
         done: false,
         createdAt: now,
-        updatedAt: now,
+        updatedAt: null,
         priority: "medium",
         dueDate: null,
       },
     ]);
 
-    e.target.reset();
+    e.currentTarget.reset();
   };
 
   return (
