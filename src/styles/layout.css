@@ -1,0 +1,52 @@
+.page {
+  padding-block: var(--space-6);
+}
+
+.container {
+  width: calc(100% - 32px);
+  max-width: var(--container-width);
+  margin-inline: auto;
+}
+
+.flex {
+  display: flex;
+}
+
+.grid {
+  display: grid;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+.gap-2 {
+  gap: var(--space-2);
+}
+
+.gap-4 {
+  gap: var(--space-4);
+}
+
+.gap-6 {
+  gap: var(--space-6);
+}
+
+.pounter {
+  cursor: pointer;
+}
+
+.search-highlight {
+  background: #fff2a8;
+  color: inherit;
+  border-radius: 3px;
+  padding-inline: 2px;
+}

@@ -6,7 +6,7 @@ interface Props {
   onUpdateTask: (newTodo: Todo) => void;
 }
 
-const TodoFormEdit = ({ todo, setIsEditing, onUpdateTask }: Props) => {
+const TodoEditForm = ({ todo, setIsEditing, onUpdateTask }: Props) => {
   const onEditSubmitTask = (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -57,4 +57,4 @@ const TodoFormEdit = ({ todo, setIsEditing, onUpdateTask }: Props) => {
   );
 };
 
-export default TodoFormEdit;
+export default TodoEditForm;

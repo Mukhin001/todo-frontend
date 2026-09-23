@@ -74,51 +74,64 @@ const TodoContainer = () => {
     );
   };
 
+  const filteredTodoList = getSortedTodoList();
+
   return (
-    <section>
-      <div>
-        <h1>ContainerTodo</h1>
-        <nav>
-          <ul>
-            {menuItemArr.map((menuItem) => (
-              <li key={menuItem}>{menuItem}</li>
+    <section className="page">
+      <div className="container">
+        <div>
+          <h1>ContainerTodo</h1>
+          <nav>
+            <ul>
+              {menuItemArr.map((menuItem) => (
+                <li key={menuItem}>{menuItem}</li>
+              ))}
+            </ul>
+          </nav>
+        </div>
+
+        <TodoStats todoList={todoList} />
+        <TodoFormAdd setTodoList={setTodoList} />
+
+        <div>
+          <label htmlFor="select-todos">Choose a sort todos:</label>
+          <select name="todos" id="select-todos" onChange={onSortChange}>
+            <option value="date-asc">Oldest first</option>
+            <option value="date-desc">Newest first</option>
+          </select>
+        </div>
+
+        <form>
+          <label htmlFor="search-todo">Search todo</label>
+          <input
+            type="search"
+            name="search-todo"
+            id="search-todo"
+            onChange={(e) => setSearchTodo(e.target.value)}
+          />
+        </form>
+
+        {filteredTodoList.length > 0 ? (
+          <ul className="todo-list">
+            {filteredTodoList.map((todo) => (
+              <TodoItem
+                key={todo.id}
+                todo={todo}
+                onToggleDone={onToggleDone}
+                onDeleteTask={onDeleteTask}
+                onUpdateTask={onUpdateTask}
+                searchTodo={searchTodo}
+              />
             ))}
           </ul>
-        </nav>
+        ) : searchTodo.trim() ? (
+          <p className="todo-list__empty">
+            По запросу «{searchTodo}» ничего не найдено.
+          </p>
+        ) : (
+          <p className="todo-list__empty">Пока нет задач.</p>
+        )}
       </div>
-
-      <TodoStats todoList={todoList} />
-      <TodoFormAdd setTodoList={setTodoList} />
-
-      <div>
-        <label htmlFor="select-todos">Choose a sort todos:</label>
-        <select name="todos" id="select-todos" onChange={onSortChange}>
-          <option value="date-asc">Oldest first</option>
-          <option value="date-desc">Newest first</option>
-        </select>
-      </div>
-
-      <form>
-        <label htmlFor="search-todo">Search todo</label>
-        <input
-          type="text"
-          name="search-todo"
-          id="search-todo"
-          onChange={(e) => setSearchTodo(e.target.value)}
-        />
-      </form>
-
-      <ul>
-        {getSortedTodoList().map((todo) => (
-          <TodoItem
-            key={todo.id}
-            todo={todo}
-            onToggleDone={onToggleDone}
-            onDeleteTask={onDeleteTask}
-            onUpdateTask={onUpdateTask}
-          />
-        ))}
-      </ul>
     </section>
   );
 };
