@@ -8,6 +8,7 @@ const TodoContainer = () => {
   const [todoList, setTodoList] = useState(todoArr);
   const [sortOption, setSortOption] = useState<SortOption>("date-asc");
   const [searchTodo, setSearchTodo] = useState("");
+  console.log(getComputedStyle(document.body).fontSize);
 
   const getSortedTodoList = () => {
     const filteredTodos = getFilteredTodoList();
