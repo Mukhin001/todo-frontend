@@ -1,4 +1,5 @@
 import type { Todo } from "../type";
+import "./todoEditForm.css";
 
 interface Props {
   todo: Todo;
@@ -27,31 +28,44 @@ const TodoEditForm = ({ todo, setIsEditing, onUpdateTask }: Props) => {
   };
 
   return (
-    <form onSubmit={onEditSubmitTask}>
-      <fieldset>
-        <legend>Edit Task</legend>
+    <form className="todo-edit-form" onSubmit={onEditSubmitTask}>
+      <fieldset className="todo-edit-form__fieldset">
+        <div className="flex justify-between">
+          <legend className="todo-edit-form__title">Edit Task</legend>
+          <button
+            type="button"
+            onClick={() => setIsEditing(false)}
+            aria-label="Close edit form"
+          >
+            ×
+          </button>
+        </div>
 
-        <p>
-          <label htmlFor="editTitle">edit task</label>
+        <div className="flex flex-column gap-2">
+          <label htmlFor="editTitle">Edit title</label>
           <input
             type="text"
             id="editTitle"
             name="editTitle"
             defaultValue={todo.title}
           />
-        </p>
+        </div>
 
-        <p>
-          <label htmlFor="editDescription">edit description</label>
+        <div className="flex flex-column gap-2">
+          <label htmlFor="editDescription">Edit description</label>
           <input
             type="text"
             id="editDescription"
             name="editDescription"
             defaultValue={todo.description}
           />
-        </p>
-
-        <button type="submit">save task</button>
+        </div>
+        <div className="todo-edit-form__actions">
+          <button type="button" onClick={() => setIsEditing(false)}>
+            Cancel
+          </button>
+          <button type="submit">Save</button>
+        </div>
       </fieldset>
     </form>
   );

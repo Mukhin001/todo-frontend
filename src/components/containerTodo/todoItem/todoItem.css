@@ -4,3 +4,31 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
 }
+
+.todo-card__date {
+  font-size: var(--font-size-xs);
+}
+
+.todo-card__priority {
+  flex-shrink: 0;
+
+  padding: var(--space-1) var(--space-2);
+
+  border-radius: var(--radius-sm);
+
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  background: var(--color-bg);
+}
+
+.todo-card__priority--high {
+  color: var(--color-danger);
+}
+
+.todo-card__priority--medium {
+  color: var(--color-warning);
+}
+
+.todo-card__priority--low {
+  color: var(--color-text-secondary);
+}

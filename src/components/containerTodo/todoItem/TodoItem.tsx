@@ -22,78 +22,82 @@ const TodoItem = ({
   const [isEditing, setIsEditing] = useState(false);
 
   return (
-    <li className="flex flex-column gap-2 todo-card">
+    <li className="todo-card flex flex-column gap-2">
       {!isEditing ? (
-        <div>
-          <h3>
-            <HighlightText text={todo.title} query={searchTodo} />
-          </h3>
+        <>
+          <header className="flex justify-between">
+            <h3>
+              <HighlightText text={todo.title} query={searchTodo} />
+            </h3>
+            <span
+              className={`todo-card__priority todo-card__priority--${todo.priority}`}
+            >
+              {todo.priority}
+            </span>
+          </header>
+
           <p>
             <HighlightText text={todo.description} query={searchTodo} />
           </p>
-        </div>
+
+          <div className="todo-card__meta flex gap-2">
+            <p className="todo-card__date">
+              Created:{" "}
+              <time dateTime={todo.createdAt}>
+                {new Date(todo.createdAt).toLocaleString("ru-RU", {
+                  day: "2-digit",
+                  month: "2-digit",
+                  year: "numeric",
+                  hour: "2-digit",
+                  minute: "2-digit",
+                })}
+              </time>
+            </p>
+
+            {todo.updatedAt && (
+              <p className="todo-card__date">
+                Updated:{" "}
+                <time dateTime={todo.updatedAt}>
+                  {new Date(todo.updatedAt).toLocaleString("ru-RU", {
+                    day: "2-digit",
+                    month: "2-digit",
+                    year: "numeric",
+                    hour: "2-digit",
+                    minute: "2-digit",
+                  })}
+                </time>
+              </p>
+            )}
+          </div>
+
+          <footer className="flex justify-between">
+            <label htmlFor={`todo-done-${todo.id}`} className="flex pointer">
+              <input
+                id={`todo-done-${todo.id}`}
+                name={`todo-done-${todo.id}`}
+                type="checkbox"
+                checked={todo.done}
+                onChange={() => onToggleDone(todo.id)}
+              />
+              <span>{todo.done ? "Done" : "Active"}</span>
+            </label>
+
+            <div className="todo-card__actions">
+              <button type="button" onClick={() => setIsEditing(true)}>
+                Edit
+              </button>
+              <button type="button" onClick={() => onDeleteTask(todo.id)}>
+                Delete
+              </button>
+            </div>
+          </footer>
+        </>
       ) : (
-        <div>
-          <TodoEditForm
-            todo={todo}
-            setIsEditing={setIsEditing}
-            onUpdateTask={onUpdateTask}
-          />
-        </div>
-      )}
-
-      <div className="flex justify-between">
-        {!isEditing && (
-          <label htmlFor={`todo-done-${todo.id}`} className="flex pounter">
-            <input
-              id={`todo-done-${todo.id}`}
-              name={`todo-done-${todo.id}`}
-              type="checkbox"
-              checked={todo.done}
-              onChange={() => onToggleDone(todo.id)}
-            />
-            <span>{todo.done ? "Done" : "Active"}</span>
-          </label>
-        )}
-
-        <div>
-          {!isEditing && (
-            <button type="button" onClick={() => onDeleteTask(todo.id)}>
-              delete task
-            </button>
-          )}
-          <button type="button" onClick={() => setIsEditing((prev) => !prev)}>
-            {isEditing ? "Close edit" : "Edit task"}
-          </button>
-        </div>
-      </div>
-
-      <p>
-        Created:{" "}
-        <time dateTime={todo.createdAt}>
-          {new Date(todo.createdAt).toLocaleString("ru-RU", {
-            day: "2-digit",
-            month: "2-digit",
-            year: "numeric",
-            hour: "2-digit",
-            minute: "2-digit",
-          })}
-        </time>
-      </p>
-
-      {todo.updatedAt && (
-        <p>
-          Updated:{" "}
-          <time dateTime={todo.updatedAt}>
-            {new Date(todo.updatedAt).toLocaleString("ru-RU", {
-              day: "2-digit",
-              month: "2-digit",
-              year: "numeric",
-              hour: "2-digit",
-              minute: "2-digit",
-            })}
-          </time>
-        </p>
+        <TodoEditForm
+          todo={todo}
+          setIsEditing={setIsEditing}
+          onUpdateTask={onUpdateTask}
+        />
       )}
     </li>
   );
