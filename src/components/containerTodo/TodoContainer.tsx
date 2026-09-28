@@ -108,6 +108,7 @@ const TodoContainer = () => {
             type="search"
             name="search-todo"
             id="search-todo"
+            maxLength={100}
             onChange={(e) => setSearchTodo(e.target.value)}
           />
         </form>

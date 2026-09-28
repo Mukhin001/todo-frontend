@@ -29,7 +29,7 @@ const TodoEditForm = ({ todo, setIsEditing, onUpdateTask }: Props) => {
 
   return (
     <form className="todo-edit-form" onSubmit={onEditSubmitTask}>
-      <fieldset className="todo-edit-form__fieldset">
+      <fieldset className="flex flex-column gap-2">
         <div className="flex justify-between">
           <legend className="todo-edit-form__title">Edit Task</legend>
           <button
@@ -47,20 +47,21 @@ const TodoEditForm = ({ todo, setIsEditing, onUpdateTask }: Props) => {
             type="text"
             id="editTitle"
             name="editTitle"
+            maxLength={100}
             defaultValue={todo.title}
           />
         </div>
 
         <div className="flex flex-column gap-2">
           <label htmlFor="editDescription">Edit description</label>
-          <input
-            type="text"
+          <textarea
             id="editDescription"
             name="editDescription"
+            maxLength={1000}
             defaultValue={todo.description}
           />
         </div>
-        <div className="todo-edit-form__actions">
+        <div className="flex flex-end gap-2">
           <button type="button" onClick={() => setIsEditing(false)}>
             Cancel
           </button>

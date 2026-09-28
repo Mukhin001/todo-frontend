@@ -35,6 +35,15 @@ select {
   background: var(--color-surface);
 }
 
+input,
+textarea {
+  padding: var(--space-1);
+}
+
+textarea {
+  field-sizing: content;
+}
+
 @media (min-width: 768px) {
   :root {
     --space-1: 0.5rem;
