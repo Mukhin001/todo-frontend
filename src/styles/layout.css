@@ -54,3 +54,8 @@
   border-radius: 3px;
   padding-inline: 2px;
 }
+
+.legend-title {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+}

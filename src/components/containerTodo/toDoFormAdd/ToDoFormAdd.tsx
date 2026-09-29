@@ -52,7 +52,7 @@ const TodoFormAdd = ({ setTodoList }: Props) => {
       onReset={(e) => resetTextareaHeight(e.currentTarget)}
     >
       <fieldset>
-        <legend>My Tasks</legend>
+        <legend className="legend-title">My Tasks</legend>
 
         <label htmlFor="titleNewTask">Title</label>
         <input

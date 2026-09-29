@@ -31,7 +31,7 @@ const TodoEditForm = ({ todo, setIsEditing, onUpdateTask }: Props) => {
     <form className="todo-edit-form" onSubmit={onEditSubmitTask}>
       <fieldset className="flex flex-column gap-2">
         <div className="flex justify-between">
-          <legend className="todo-edit-form__title">Edit Task</legend>
+          <legend className="legend-title">Edit Task</legend>
           <button
             type="button"
             onClick={() => setIsEditing(false)}
@@ -41,8 +41,8 @@ const TodoEditForm = ({ todo, setIsEditing, onUpdateTask }: Props) => {
           </button>
         </div>
 
-        <div className="flex flex-column gap-2">
-          <label htmlFor="editTitle">Edit title</label>
+        <div>
+          <label htmlFor="editTitle"></label>
           <input
             type="text"
             id="editTitle"
@@ -52,8 +52,8 @@ const TodoEditForm = ({ todo, setIsEditing, onUpdateTask }: Props) => {
           />
         </div>
 
-        <div className="flex flex-column gap-2">
-          <label htmlFor="editDescription">Edit description</label>
+        <div>
+          <label htmlFor="editDescription"></label>
           <textarea
             id="editDescription"
             name="editDescription"

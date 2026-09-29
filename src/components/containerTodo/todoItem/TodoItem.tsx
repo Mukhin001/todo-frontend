@@ -77,6 +77,7 @@ const TodoItem = ({
                 name={`todo-done-${todo.id}`}
                 type="checkbox"
                 checked={todo.done}
+                className="pointer"
                 onChange={() => onToggleDone(todo.id)}
               />
               <span>{todo.done ? "Done" : "Active"}</span>
