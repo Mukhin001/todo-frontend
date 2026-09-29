@@ -1,81 +1,23 @@
-import { useState } from "react";
-import { menuItemArr, todoArr, type SortOption, type Todo } from "./type";
+import { menuItemArr, type SortOption } from "./type";
 import TodoStats from "./todoStats/TodoStats";
 import TodoItem from "./todoItem/TodoItem";
-import TodoFormAdd from "./todoFormAdd/TodoFormAdd";
+import TodoFormAdd from "./todoFormAdd/ToDoFormAdd";
+import useTodos from "../../hooks/useTodos";
 
 const TodoContainer = () => {
-  const [todoList, setTodoList] = useState(todoArr);
-  const [sortOption, setSortOption] = useState<SortOption>("date-asc");
-  const [searchTodo, setSearchTodo] = useState("");
-  console.log(getComputedStyle(document.body).fontSize);
+  const {
+    todoList,
+    searchTodo,
 
-  const getSortedTodoList = () => {
-    const filteredTodos = getFilteredTodoList();
+    visibleTodoList,
 
-    if (sortOption === "date-asc") {
-      return filteredTodos.sort(
-        (a, b) =>
-          new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(),
-      );
-    }
-
-    if (sortOption === "date-desc") {
-      return filteredTodos.sort(
-        (a, b) =>
-          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
-      );
-    }
-
-    return filteredTodos;
-  };
-
-  const onToggleDone = (id: number) => {
-    setTodoList((prev) =>
-      prev.map((todo) => {
-        if (todo.id === id) {
-          return { ...todo, done: !todo.done };
-        } else {
-          return todo;
-        }
-      }),
-    );
-  };
-
-  const onDeleteTask = (id: number) => {
-    setTodoList((prev) => prev.filter((todo) => todo.id !== id));
-  };
-
-  const onUpdateTask = (updatedTodo: Todo) => {
-    setTodoList((prev) =>
-      prev.map((todo) => {
-        if (todo.id === updatedTodo.id) {
-          return updatedTodo;
-        } else {
-          return todo;
-        }
-      }),
-    );
-  };
-
-  const onSortChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const value = e.currentTarget.value as SortOption;
-    setSortOption(value);
-  };
-
-  const getFilteredTodoList = () => {
-    const query = searchTodo.trim().toLowerCase();
-
-    if (query.length === 0) {
-      return [...todoList];
-    }
-
-    return todoList.filter((todo) =>
-      todo.description.toLowerCase().includes(query),
-    );
-  };
-
-  const filteredTodoList = getSortedTodoList();
+    onAddTodo,
+    onToggleDone,
+    onDeleteTask,
+    onUpdateTask,
+    onSortChange,
+    onSearchChange,
+  } = useTodos();
 
   return (
     <section className="page">
@@ -92,11 +34,15 @@ const TodoContainer = () => {
         </div>
 
         <TodoStats todoList={todoList} />
-        <TodoFormAdd setTodoList={setTodoList} />
+        <TodoFormAdd onAddTodo={onAddTodo} />
 
         <div>
           <label htmlFor="select-todos">Choose a sort todos:</label>
-          <select name="todos" id="select-todos" onChange={onSortChange}>
+          <select
+            name="todos"
+            id="select-todos"
+            onChange={(e) => onSortChange(e.currentTarget.value as SortOption)}
+          >
             <option value="date-asc">Oldest first</option>
             <option value="date-desc">Newest first</option>
           </select>
@@ -109,13 +55,14 @@ const TodoContainer = () => {
             name="search-todo"
             id="search-todo"
             maxLength={100}
-            onChange={(e) => setSearchTodo(e.target.value)}
+            value={searchTodo}
+            onChange={(e) => onSearchChange(e.target.value)}
           />
         </form>
 
-        {filteredTodoList.length > 0 ? (
+        {visibleTodoList.length > 0 ? (
           <ul className="todo-list">
-            {filteredTodoList.map((todo) => (
+            {visibleTodoList.map((todo) => (
               <TodoItem
                 key={todo.id}
                 todo={todo}

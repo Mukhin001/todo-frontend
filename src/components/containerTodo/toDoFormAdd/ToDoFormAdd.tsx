@@ -1,9 +1,8 @@
-import type { Todo } from "../type";
 interface Props {
-  setTodoList: React.Dispatch<React.SetStateAction<Todo[]>>;
+  onAddTodo: (title: string, description: string) => void;
 }
 
-const TodoFormAdd = ({ setTodoList }: Props) => {
+const TodoFormAdd = ({ onAddTodo }: Props) => {
   const addNewTask = (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -18,21 +17,7 @@ const TodoFormAdd = ({ setTodoList }: Props) => {
       return;
     }
 
-    const now = new Date().toISOString();
-
-    setTodoList((prev) => [
-      ...prev,
-      {
-        id: Date.now(),
-        title,
-        description,
-        done: false,
-        createdAt: now,
-        updatedAt: null,
-        priority: "medium",
-        dueDate: null,
-      },
-    ]);
+    onAddTodo(title, description);
 
     form.reset();
     resetTextareaHeight(form);
