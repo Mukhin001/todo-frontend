@@ -1,4 +1,5 @@
 import type { Todo } from "../type";
+import "./todoEditForm.css";
 
 interface Props {
   todo: Todo;
@@ -6,7 +7,7 @@ interface Props {
   onUpdateTask: (newTodo: Todo) => void;
 }
 
-const TodoFormEdit = ({ todo, setIsEditing, onUpdateTask }: Props) => {
+const TodoEditForm = ({ todo, setIsEditing, onUpdateTask }: Props) => {
   const onEditSubmitTask = (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -27,34 +28,48 @@ const TodoFormEdit = ({ todo, setIsEditing, onUpdateTask }: Props) => {
   };
 
   return (
-    <form onSubmit={onEditSubmitTask}>
-      <fieldset>
-        <legend>Edit Task</legend>
+    <form className="todo-edit-form" onSubmit={onEditSubmitTask}>
+      <fieldset className="flex flex-column gap-2">
+        <div className="flex justify-between">
+          <legend className="legend-title">Edit Task</legend>
+          <button
+            type="button"
+            onClick={() => setIsEditing(false)}
+            aria-label="Close edit form"
+          >
+            ×
+          </button>
+        </div>
 
-        <p>
-          <label htmlFor="editTitle">edit task</label>
+        <div>
+          <label htmlFor="editTitle"></label>
           <input
             type="text"
             id="editTitle"
             name="editTitle"
+            maxLength={100}
             defaultValue={todo.title}
           />
-        </p>
+        </div>
 
-        <p>
-          <label htmlFor="editDescription">edit description</label>
-          <input
-            type="text"
+        <div>
+          <label htmlFor="editDescription"></label>
+          <textarea
             id="editDescription"
             name="editDescription"
+            maxLength={1000}
             defaultValue={todo.description}
           />
-        </p>
-
-        <button type="submit">save task</button>
+        </div>
+        <div className="flex flex-end gap-2">
+          <button type="button" onClick={() => setIsEditing(false)}>
+            Cancel
+          </button>
+          <button type="submit">Save</button>
+        </div>
       </fieldset>
     </form>
   );
 };
 
-export default TodoFormEdit;
+export default TodoEditForm;
