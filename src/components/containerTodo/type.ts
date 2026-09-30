@@ -1,3 +1,5 @@
+export type TodoPriority = "low" | "medium" | "high";
+
 export interface Todo {
   id: number;
   title: string;
@@ -5,7 +7,7 @@ export interface Todo {
   done: boolean;
   createdAt: string;
   updatedAt: string | null;
-  priority: "low" | "medium" | "high";
+  priority: TodoPriority;
   dueDate: string | null;
 }
 

@@ -1,9 +1,5 @@
 import { useState } from "react";
-import {
-  todoArr,
-  type SortOption,
-  type Todo,
-} from "../components/containerTodo/type";
+import { todoArr, type SortOption } from "../components/containerTodo/type";
 
 const useTodos = () => {
   const [todoList, setTodoList] = useState(todoArr);
@@ -64,11 +60,13 @@ const useTodos = () => {
     setTodoList((prev) => prev.filter((todo) => todo.id !== id));
   };
 
-  const onUpdateTask = (updatedTodo: Todo) => {
+  const onUpdateTask = (id: number, title: string, description: string) => {
+    const now = new Date().toISOString();
+
     setTodoList((prev) =>
       prev.map((todo) => {
-        if (todo.id === updatedTodo.id) {
-          return updatedTodo;
+        if (todo.id === id) {
+          return { ...todo, title, description, updatedAt: now };
         } else {
           return todo;
         }
