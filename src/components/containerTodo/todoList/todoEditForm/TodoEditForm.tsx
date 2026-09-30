@@ -1,30 +1,36 @@
-import type { Todo } from "../type";
 import "./todoEditForm.css";
 
 interface Props {
-  todo: Todo;
-  setIsEditing: React.Dispatch<React.SetStateAction<boolean>>;
-  onUpdateTask: (newTodo: Todo) => void;
+  id: number;
+  title: string;
+  description: string;
+  onCancel: () => void;
+  onUpdateTask: (id: number, title: string, description: string) => void;
 }
 
-const TodoEditForm = ({ todo, setIsEditing, onUpdateTask }: Props) => {
+const TodoEditForm = ({
+  id,
+  title,
+  description,
+  onCancel,
+  onUpdateTask,
+}: Props) => {
   const onEditSubmitTask = (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const formData = new FormData(e.currentTarget);
 
-    const title = String(formData.get("editTitle"));
-    const description = String(formData.get("editDescription"));
-    const now = new Date().toISOString();
+    const newTitle = String(formData.get("editTitle")).trim();
+    const newDescription = String(formData.get("editDescription")).trim();
 
-    if (title.trim().length === 0 || description.trim().length === 0) {
+    if (newTitle.length === 0 || newDescription.length === 0) {
       alert("title and description: required fields");
       return;
     }
 
-    onUpdateTask({ ...todo, title, description, updatedAt: now });
+    onUpdateTask(id, newTitle, newDescription);
 
-    setIsEditing(false);
+    onCancel();
   };
 
   return (
@@ -32,11 +38,7 @@ const TodoEditForm = ({ todo, setIsEditing, onUpdateTask }: Props) => {
       <fieldset className="flex flex-column gap-2">
         <div className="flex justify-between">
           <legend className="legend-title">Edit Task</legend>
-          <button
-            type="button"
-            onClick={() => setIsEditing(false)}
-            aria-label="Close edit form"
-          >
+          <button type="button" onClick={onCancel} aria-label="Close edit form">
             ×
           </button>
         </div>
@@ -48,7 +50,7 @@ const TodoEditForm = ({ todo, setIsEditing, onUpdateTask }: Props) => {
             id="editTitle"
             name="editTitle"
             maxLength={100}
-            defaultValue={todo.title}
+            defaultValue={title}
           />
         </div>
 
@@ -58,11 +60,11 @@ const TodoEditForm = ({ todo, setIsEditing, onUpdateTask }: Props) => {
             id="editDescription"
             name="editDescription"
             maxLength={1000}
-            defaultValue={todo.description}
+            defaultValue={description}
           />
         </div>
         <div className="flex flex-end gap-2">
-          <button type="button" onClick={() => setIsEditing(false)}>
+          <button type="button" onClick={onCancel}>
             Cancel
           </button>
           <button type="submit">Save</button>
