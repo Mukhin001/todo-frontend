@@ -7,9 +7,9 @@ import TodoList from "./todoList/TodoList";
 
 const TodoContainer = () => {
   const {
-    todoList,
     searchTodo,
     visibleTodoList,
+    getStats,
     onAddTodo,
     onToggleDone,
     onDeleteTask,
@@ -18,10 +18,12 @@ const TodoContainer = () => {
     onSearchChange,
   } = useTodos();
 
+  const { total, done, active } = getStats();
+
   return (
     <main className="page">
       <div className="container">
-        <TodoStats todoList={todoList} />
+        <TodoStats total={total} done={done} active={active} />
         <TodoFormAdd onAddTodo={onAddTodo} />
         <TodoSort onSortChange={onSortChange} />
         <TodoSearch searchTodo={searchTodo} onSearchChange={onSearchChange} />

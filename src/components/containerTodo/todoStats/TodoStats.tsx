@@ -1,17 +1,17 @@
-import type { Todo } from "../type";
-
 interface Props {
-  todoList: Todo[];
+  total: number;
+  done: number;
+  active: number;
 }
 
-const TodoStats = ({ todoList }: Props) => {
+const TodoStats = ({ total, done, active }: Props) => {
   return (
     <section>
       <h2>Good afternoon!</h2>
       <div>
-        <p>Total: {todoList.length}</p>
-        <p>Done: {todoList.filter((e) => e.done).length}</p>
-        <p>Active: {todoList.filter((e) => !e.done).length}</p>
+        <p>Total: {total}</p>
+        <p>Done: {done}</p>
+        <p>Active: {active}</p>
       </div>
     </section>
   );
