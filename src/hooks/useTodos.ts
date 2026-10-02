@@ -96,13 +96,20 @@ const useTodos = () => {
     );
   };
 
+  const getStats = () => {
+    const total = todoList.length;
+    const done = todoList.filter((todo) => todo.done).length;
+    const active = todoList.filter((todo) => !todo.done).length;
+    return { total, done, active };
+  };
+
   const visibleTodoList = getSortedTodoList();
 
   return {
-    todoList,
     searchTodo,
 
     visibleTodoList,
+    getStats,
 
     onAddTodo,
     onToggleDone,
