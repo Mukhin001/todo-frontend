@@ -8,7 +8,7 @@ interface Props {
 }
 
 const TodoModal = ({ onDeleteTask }: Props) => {
-  const modal = useAppSelector((state) => state.modal.modal);
+  const modal = useAppSelector((state) => state.modal);
   const dispatch = useAppDispatch();
 
   if (!modal) {
@@ -20,12 +20,12 @@ const TodoModal = ({ onDeleteTask }: Props) => {
   };
 
   return (
-    <Modal onClose={() => handleClose}>
+    <Modal onClose={handleClose}>
       <h3>{modalContent[modal.type].title}</h3>
       <p>{modalContent[modal.type].message}</p>
       {modal.type === "delete" ? (
         <div>
-          <button onClick={() => handleClose}>Cancel</button>
+          <button onClick={handleClose}>Cancel</button>
           <button
             onClick={() => {
               onDeleteTask(modal.id);
@@ -36,7 +36,7 @@ const TodoModal = ({ onDeleteTask }: Props) => {
           </button>
         </div>
       ) : (
-        <button onClick={() => handleClose}>OK</button>
+        <button onClick={handleClose}>OK</button>
       )}
     </Modal>
   );

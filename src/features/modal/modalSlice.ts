@@ -1,7 +1,5 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
-export type ModalType = "delete" | "error" | "success";
-
 export type ModalState =
   | {
       type: "delete";
@@ -14,24 +12,18 @@ export type ModalState =
       type: "success";
     };
 
-interface ModalSliceState {
-  modal: ModalState | null;
-}
-
-const initialState: ModalSliceState = {
-  modal: null,
-};
+const initialState = null as ModalState | null;
 
 const modalSlice = createSlice({
   name: "modal",
   initialState,
   reducers: {
-    openModal: (state, action: PayloadAction<ModalState>) => {
-      state.modal = action.payload;
+    openModal: (_, action: PayloadAction<ModalState>) => {
+      return action.payload;
     },
 
-    closeModal: (state) => {
-      state.modal = null;
+    closeModal: () => {
+      return null;
     },
   },
 });
