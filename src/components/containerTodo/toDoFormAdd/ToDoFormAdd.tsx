@@ -1,8 +1,13 @@
+import { useAppDispatch } from "../../../app/hooks";
+import { openModal } from "../../../features/modal/modalSlice";
+
 interface Props {
   onAddTodo: (title: string, description: string) => void;
 }
 
 const TodoFormAdd = ({ onAddTodo }: Props) => {
+  const dispatch = useAppDispatch();
+
   const addNewTask = (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -13,7 +18,7 @@ const TodoFormAdd = ({ onAddTodo }: Props) => {
     const description = String(formData.get("descriptionNewTask")).trim();
 
     if (title.length === 0 || description.length === 0) {
-      alert("title and description: required fields");
+      dispatch(openModal({ type: "error" }));
       return;
     }
 
