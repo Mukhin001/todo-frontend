@@ -4,6 +4,7 @@ import useTodos from "../../hooks/useTodos";
 import TodoSort from "./todoSort/TodoSort";
 import TodoSearch from "./todoSearch/TodoSearch";
 import TodoList from "./todoList/TodoList";
+import TodoModal from "../todoModal/TodoModal";
 
 const TodoContainer = () => {
   const {
@@ -23,6 +24,7 @@ const TodoContainer = () => {
   return (
     <main className="page">
       <div className="container">
+        <TodoModal onDeleteTask={onDeleteTask} />
         <TodoStats total={total} done={done} active={active} />
         <TodoFormAdd onAddTodo={onAddTodo} />
         <TodoSort onSortChange={onSortChange} />

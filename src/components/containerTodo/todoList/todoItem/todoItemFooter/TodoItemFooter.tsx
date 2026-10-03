@@ -1,3 +1,6 @@
+import { useAppDispatch } from "../../../../../app/hooks";
+import { openModal } from "../../../../../features/modal/modalSlice";
+
 interface Props {
   id: number;
   done: boolean;
@@ -10,9 +13,11 @@ const TodoItemFooter = ({
   id,
   done,
   onToggleDone,
-  onDeleteTask,
+
   onShowEditing,
 }: Props) => {
+  const dispatch = useAppDispatch();
+
   return (
     <footer className="flex justify-between">
       <label htmlFor={`todo-done-${id}`} className="flex pointer">
@@ -31,7 +36,10 @@ const TodoItemFooter = ({
         <button type="button" onClick={onShowEditing}>
           Edit
         </button>
-        <button type="button" onClick={() => onDeleteTask(id)}>
+        <button
+          type="button"
+          onClick={() => dispatch(openModal({ type: "delete", id }))}
+        >
           Delete
         </button>
       </div>

@@ -14,6 +14,21 @@ export interface Todo {
 type MenuItem = string;
 export type SortOption = "date-asc" | "date-desc";
 
+export const modalContent = {
+  delete: {
+    title: "Delete task?",
+    message: "Are you sure you want to delete this task?",
+  },
+  error: {
+    title: "Error",
+    message: "Title and description are required.",
+  },
+  success: {
+    title: "Success",
+    message: "Task successfully created.",
+  },
+};
+
 export const menuItemArr: MenuItem[] = ["🔍", "🌙", "👤"];
 
 export const todoArr: Todo[] = [
